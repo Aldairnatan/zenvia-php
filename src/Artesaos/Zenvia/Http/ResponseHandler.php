@@ -24,7 +24,7 @@ class ResponseHandler implements ResponseHandlerInterface
             case 'psr7':
                 return $response;
             default:
-                throw new \InvalidArgumentException('Format "%s" is not supported', $format);
+                throw new \InvalidArgumentException('Format '.$format.'is not supported');
         }
     }
 
@@ -33,15 +33,15 @@ class ResponseHandler implements ResponseHandlerInterface
      */
     public static function convertToArray(ResponseInterface $response)
     {
-        return json_decode($response->getBody(), true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function convertToSimpleXml(ResponseInterface $response)
+    public static function convertToSimpleXml(ResponseInterface $response)
     {
-        $body = $response->getBody();
+        $body = $response->getBody()->getContents();
         try {
             return new \SimpleXMLElement((string) $body ?: '<root />');
         } catch (\Exception $e) {
