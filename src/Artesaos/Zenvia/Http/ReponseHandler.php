@@ -1,5 +1,5 @@
 <?php
-namespace Artesaos\Zenvia;
+namespace Artesaos\Zenvia\Http;
 
 use Artesaos\Zenvia\Contracts\ResponseHandlerInterface;
 use Artesaos\Zenvia\Exceptions\ZenviaResponseException;
