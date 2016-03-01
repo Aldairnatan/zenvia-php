@@ -15,6 +15,8 @@ class ResponseHandler implements ResponseHandlerInterface
         switch ($format) {
             case 'array':
                 return self::convertToArray($response);
+            case 'json':
+                return self::convertToJson($response);
             case 'string':
                 return $response->getBody()->__toString();
             case 'simple_xml':
@@ -39,11 +41,41 @@ class ResponseHandler implements ResponseHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public static function convertToSimpleXml(ResponseInterface $response)
+    public static function convertToJson(ResponseInterface $response)
     {
-        $body = $response->getBody()->getContents();
+        return json_decode($response->getBody()->getContents());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function convertToSimpleXml($data, $rootNodeName = 'root', $xml = null) {
+        if($data instanceof ResponseInterface){
+            $data = self::convertToArray($data);
+        }
+
         try {
-            return new \SimpleXMLElement((string) $body ?: '<root />');
+            if ($xml == null) {
+                $xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
+            }
+
+            foreach ($data as $key => $value) {
+                if (is_numeric($key)) {
+                    $key = "unknownNode_" . (string) $key;
+                }
+
+                $key = preg_replace('/[^a-z]/i', '', $key);
+
+
+                if (is_array($value)) {
+                    $node = $xml->addChild($key);
+                    self::convertToSimpleXml($value, $rootNodeName, $node);
+                } else {
+                    $value = htmlentities($value);
+                    $xml->addChild($key, $value);
+                }
+            }
+            return $xml->asXML();
         } catch (\Exception $e) {
             throw new ZenviaResponseException('Unable to parse response body into XML.');
         }

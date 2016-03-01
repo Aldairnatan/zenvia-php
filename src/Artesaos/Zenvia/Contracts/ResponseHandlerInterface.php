@@ -30,11 +30,11 @@ interface ResponseHandlerInterface
 
 
     /**
-     * @param ResponseInterface $response
-     *
+     * @param $data
+     * @param string $rootNodeName
+     * @param null $xml
      * @return \SimpleXMLElement
      *
-     * @throws ZenviaResponseException
      */
-    public static function convertToSimpleXml(ResponseInterface $response);
+    public static function convertToSimpleXml($data, $rootNodeName = 'root', $xml = null);
 }
