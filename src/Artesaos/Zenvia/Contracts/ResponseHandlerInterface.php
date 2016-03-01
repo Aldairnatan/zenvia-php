@@ -18,7 +18,7 @@ interface ResponseHandlerInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function convert(ResponseInterface $response, $format);
+    public static function convert(ResponseInterface $response, $format);
 
 
     /**
@@ -26,7 +26,7 @@ interface ResponseHandlerInterface
      *
      * @return string
      */
-    public function convertToArray(ResponseInterface $response);
+    public static function convertToArray(ResponseInterface $response);
 
 
     /**
@@ -36,5 +36,5 @@ interface ResponseHandlerInterface
      *
      * @throws ZenviaResponseException
      */
-    public function convertToSimpleXml(ResponseInterface $response);
+    public static function convertToSimpleXml(ResponseInterface $response);
 }
