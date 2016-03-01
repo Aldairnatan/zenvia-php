@@ -6,12 +6,6 @@ use Artesaos\Zenvia\Contracts\AuthenticatorInterface;
 class Authenticator implements AuthenticatorInterface
 {
     /**
-     * @var string contains base64 access code
-     * */
-    protected $access_code;
-
-
-    /**
      * @var string contains account name
      * */
     private $account;
@@ -30,7 +24,6 @@ class Authenticator implements AuthenticatorInterface
     {
         $this->setAccount($account);
         $this->setPassword($password);
-        $this->setAccessCode();
     }
 
 
@@ -71,23 +64,11 @@ class Authenticator implements AuthenticatorInterface
         return $this->password;
     }
 
-
-    /**
-     * @return $this
-     * @internal param $password
-     * @internal param $access_code
-     */
-    public function setAccessCode()
-    {
-        $this->access_code = base64_encode($this->getAccount().':'.$this->getPassword());
-        return $this;
-    }
-
     /**
      * @return mixed
      */
     public function getAccessCode()
     {
-        return $this->access_code;
+        return base64_encode($this->account.':'.$this->password);
     }
 }
