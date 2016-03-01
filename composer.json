@@ -16,7 +16,9 @@
         }
     },
     "autoload-dev": {
-        "Artesaos\\Zenvia\\Tests\\": "tests/Zenvia"
+        "psr-4": {
+            "Artesaos\\Zenvia\\Tests\\": "tests/Zenvia"
+        }
     },
     "require": {
         "php": ">=5.5",
