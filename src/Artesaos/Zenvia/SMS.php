@@ -7,6 +7,7 @@ use Artesaos\Zenvia\Contracts\ResponseHandlerInterface;
 use Artesaos\Zenvia\Contracts\SMSInterface;
 use Artesaos\Zenvia\Exceptions\ZenviaContractException;
 use Artesaos\Zenvia\Http\RequestManager;
+use Artesaos\Zenvia\Http\ResponseHandler;
 
 class SMS implements SMSInterface {
 
@@ -19,7 +20,6 @@ class SMS implements SMSInterface {
      * @var AuthenticatorInterface
      */
     private $authenticator;
-
 
     /**
      * SMS constructor.
@@ -36,9 +36,13 @@ class SMS implements SMSInterface {
     /**
      * {@inheritdoc}
      */
-    public function send($uri, array $headers = [], $body = null, $protocolVersion = '1.1')
+    public function send(array $body, $responseFormat = 'json')
     {
-        return $this->getRequestManager()->sendRequest('POST', $uri,$headers,$body.$protocolVersion);
+        $response = $this->getRequestManager()
+                           ->sendRequest('POST','services/send-sms',$body, $this->authenticator->getAccessCode(),'1.1');
+
+        return ResponseHandler::convert($response,$responseFormat);
+
     }
 
     /**

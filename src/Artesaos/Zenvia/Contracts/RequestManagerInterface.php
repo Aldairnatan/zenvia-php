@@ -3,7 +3,7 @@
 namespace Artesaos\Zenvia\Contracts;
 
 
-use Artesaos\Zenvia\RequestManager;
+use Artesaos\Zenvia\Http\RequestManager;
 use Http\Client\HttpClient;
 
 interface RequestManagerInterface
@@ -13,14 +13,12 @@ interface RequestManagerInterface
      *
      * @param string $method
      * @param string $uri
-     * @param array  $headers
-     * @param string $body
+     * @param array|string $body
+     * @param $access_code
      * @param string $protocolVersion
-     *
      * @return \Psr\Http\Message\ResponseInterface
-     *
      */
-    public function sendRequest($method, $uri, array $headers = [], $body = null, $protocolVersion = '1.1');
+    public function sendRequest($method, $uri, array $body = [], $access_code, $protocolVersion = '1.1');
 
     /**
      * @param \Http\Client\HttpClient $httpClient

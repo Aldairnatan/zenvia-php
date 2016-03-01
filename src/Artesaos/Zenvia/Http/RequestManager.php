@@ -16,12 +16,15 @@ class RequestManager implements RequestManagerInterface
      */
     private $httpClient;
 
+
+    private $url = 'https://private-anon-4abaa2a33-zenviasms.apiary-mock.com/';
+
     /**
      * {@inheritdoc}
      */
-    public function sendRequest($method, $uri, array $headers = [], $body = null, $protocolVersion = '1.1')
+    public function sendRequest($method, $uri, array $body = [], $access_code, $protocolVersion = '1.1')
     {
-        $request = MessageFactoryDiscovery::find()->createRequest($method, $uri, $headers, $body, $protocolVersion);
+        $request = MessageFactoryDiscovery::find()->createRequest($method, $this->url.$uri, ['Authorization'=>'Basic '.$access_code,'Content-Type'=>'application-json','Accept'=>'application/json'], json_encode($body), $protocolVersion);
         try {
             return $this->getHttpClient()->sendRequest($request);
         } catch (TransferException $e) {
