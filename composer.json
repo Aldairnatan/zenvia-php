@@ -19,6 +19,7 @@
         "Artesaos\\Zenvia\\Tests\\": "tests/"
     },
     "require": {
+        "php": ">=5.5",
         "php-http/client-implementation": "^1.0",
         "php-http/httplug": "^1.0",
         "php-http/discovery": "^0.8"
