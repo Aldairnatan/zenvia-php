@@ -2,7 +2,6 @@
 namespace Artesaos\Zenvia;
 
 use Artesaos\Zenvia\Contracts\ResponseHandlerInterface;
-use Artesaos\Zenvia\Exceptions\ZenviaRequestException;
 use Artesaos\Zenvia\Exceptions\ZenviaResponseException;
 use Psr\Http\Message\ResponseInterface;
 
