@@ -2,8 +2,9 @@
 
 namespace Artesaos\Zenvia;
 
+use Artesaos\Zenvia\Contracts\RequestManagerInterface;
 
-class RequestManager
+class RequestManager implements RequestManagerInterface
 {
-
+    
 }
