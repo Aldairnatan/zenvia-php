@@ -5,20 +5,20 @@ use Artesaos\Zenvia\Contracts\ResponseHandlerInterface;
 use Artesaos\Zenvia\Exceptions\ZenviaResponseException;
 use Psr\Http\Message\ResponseInterface;
 
-class ReponseHandler implements ResponseHandlerInterface
+class ResponseHandler implements ResponseHandlerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function convert(ResponseInterface $response, $format)
+    public static function convert(ResponseInterface $response, $format)
     {
         switch ($format) {
             case 'array':
-                return $this->convertToArray($response);
+                return self::convertToArray($response);
             case 'string':
                 return $response->getBody()->__toString();
             case 'simple_xml':
-                return $this->convertToSimpleXml($response);
+                return self::convertToSimpleXml($response);
             case 'stream':
                 return $response->getBody();
             case 'psr7':
@@ -31,7 +31,7 @@ class ReponseHandler implements ResponseHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function convertToArray(ResponseInterface $response)
+    public static function convertToArray(ResponseInterface $response)
     {
         return json_decode($response->getBody(), true);
     }
