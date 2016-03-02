@@ -30,6 +30,14 @@ interface ResponseHandlerInterface
 
 
     /**
+     * @param ResponseInterface $response
+     *
+     * @return object StdClass
+     */
+    public static function convertToObj(ResponseInterface $response);
+
+
+    /**
      * @param $data
      * @param string $rootNodeName
      * @param null $xml

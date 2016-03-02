@@ -36,7 +36,7 @@ class SMS implements SMSInterface {
     /**
      * {@inheritdoc}
      */
-    public function send(array $body, $responseFormat = 'json')
+    public function send(array $body, $responseFormat = 'array')
     {
         $response = $this->getRequestManager()
                            ->sendRequest('POST','services/send-sms',$body, $this->authenticator->getAccessCode(),'1.1');

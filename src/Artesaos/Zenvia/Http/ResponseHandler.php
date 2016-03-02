@@ -15,8 +15,8 @@ class ResponseHandler implements ResponseHandlerInterface
         switch ($format) {
             case 'array':
                 return self::convertToArray($response);
-            case 'json':
-                return self::convertToJson($response);
+            case 'obj':
+                return self::convertToObj($response);
             case 'string':
                 return $response->getBody()->__toString();
             case 'simple_xml':
@@ -41,7 +41,7 @@ class ResponseHandler implements ResponseHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public static function convertToJson(ResponseInterface $response)
+    public static function convertToObj(ResponseInterface $response)
     {
         return json_decode($response->getBody()->getContents());
     }
