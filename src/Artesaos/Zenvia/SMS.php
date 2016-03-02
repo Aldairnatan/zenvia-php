@@ -47,6 +47,23 @@ class SMS implements SMSInterface {
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function sendMultiple(array $data,$aggregateId = null, $responseFormat = 'psr7')
+    {
+        if($aggregateId != null){
+            $array_data['sendSmsMultiRequest']['aggregateId'] = $aggregateId;
+        }
+
+        $array_data['sendSmsMultiRequest']['sendSmsRequestList'] = $data;
+        $response = $this->getRequestManager()
+            ->sendRequest('POST','services/send-sms-multiple',$array_data, $this->authenticator->getAccessCode(),'1.1');
+
+        return ResponseHandler::convert($response,$responseFormat);
+
+    }
+
+    /**
      * @return RequestManagerInterface
      */
     public function getRequestManager()
