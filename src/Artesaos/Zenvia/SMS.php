@@ -36,7 +36,7 @@ class SMS implements SMSInterface {
     /**
      * {@inheritdoc}
      */
-    public function send(array $body, $responseFormat = 'array')
+    public function send(array $body, $responseFormat = 'psr7')
     {
         $data['sendSmsRequest'] = $body;
         $response = $this->getRequestManager()
