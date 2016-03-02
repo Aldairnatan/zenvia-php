@@ -24,7 +24,7 @@ class RequestManager implements RequestManagerInterface
      */
     public function sendRequest($method, $uri, array $body = [], $access_code, $protocolVersion = '1.1')
     {
-        $request = MessageFactoryDiscovery::find()->createRequest($method, $this->url.$uri, ['Authorization'=>'Basic '.$access_code,'Content-Type'=>'application-json','Accept'=>'application/json'], json_encode($body), $protocolVersion);
+        $request = MessageFactoryDiscovery::find()->createRequest($method, $this->url.$uri, ['authorization'=>"Basic $access_code",'content-type'=>'application/json','accept'=>'application/json'], json_encode($body), $protocolVersion);
         try {
             return $this->getHttpClient()->sendRequest($request);
         } catch (TransferException $e) {
