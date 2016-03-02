@@ -38,8 +38,9 @@ class SMS implements SMSInterface {
      */
     public function send(array $body, $responseFormat = 'array')
     {
+        $data['sendSmsRequest'] = $body;
         $response = $this->getRequestManager()
-                           ->sendRequest('POST','services/send-sms',$body, $this->authenticator->getAccessCode(),'1.1');
+                           ->sendRequest('POST','services/send-sms',$data, $this->authenticator->getAccessCode(),'1.1');
 
         return ResponseHandler::convert($response,$responseFormat);
 
