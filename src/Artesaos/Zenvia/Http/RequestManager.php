@@ -16,15 +16,19 @@ class RequestManager implements RequestManagerInterface
      */
     private $httpClient;
 
+    private $url;
 
-    private $url = 'https://private-anon-4abaa2a33-zenviasms.apiary-mock.com/';
+    public function __construct()
+    {
+        $this->setUrl('https://private-anon-4abaa2a33-zenviasms.apiary-mock.com/');
+    }
 
     /**
      * {@inheritdoc}
      */
     public function sendRequest($method, $uri, array $body = [], $access_code, $protocolVersion = '1.1')
     {
-        $request = MessageFactoryDiscovery::find()->createRequest($method, $this->url.$uri, ['authorization'=>"Basic $access_code",'content-type'=>'application/json','accept'=>'application/json'], json_encode($body), $protocolVersion);
+        $request = MessageFactoryDiscovery::find()->createRequest($method, $this->getUrl().$uri, ['authorization'=>"Basic $access_code",'content-type'=>'application/json','accept'=>'application/json'], json_encode($body), $protocolVersion);
         try {
             return $this->getHttpClient()->sendRequest($request);
         } catch (TransferException $e) {
@@ -50,5 +54,22 @@ class RequestManager implements RequestManagerInterface
             $this->httpClient = HttpClientDiscovery::find();
         }
         return $this->httpClient;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 }
