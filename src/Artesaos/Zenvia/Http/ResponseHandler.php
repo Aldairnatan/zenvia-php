@@ -92,11 +92,15 @@ class ResponseHandler implements ResponseHandlerInterface
             case '200':
             case '201':
                 return;
+                break;
             case '404':
                 throw new ZenviaResponseException('The request get a 404 error response');
                 break;
             case '500':
                 throw new ZenviaResponseException('The server respond with a HTTP 500 error');
+                break;
+            default:
+                return;
                 break;
         }
     }
