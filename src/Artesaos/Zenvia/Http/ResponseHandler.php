@@ -12,6 +12,8 @@ class ResponseHandler implements ResponseHandlerInterface
      */
     public static function convert(ResponseInterface $response, $format)
     {
+        static::handleWithErrors($response);
+
         switch ($format) {
             case 'array':
                 return self::convertToArray($response);
@@ -78,6 +80,24 @@ class ResponseHandler implements ResponseHandlerInterface
             return $xml->asXML();
         } catch (\Exception $e) {
             throw new ZenviaResponseException('Unable to parse response body into XML.');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function handleWithErrors(ResponseInterface $response)
+    {
+        switch ($response->getStatusCode()){
+            case '200':
+            case '201':
+                return;
+            case '404':
+                throw new ZenviaResponseException('The request get a 404 error response');
+                break;
+            case '500':
+                throw new ZenviaResponseException('The server respond with a HTTP 500 error');
+                break;
         }
     }
 }

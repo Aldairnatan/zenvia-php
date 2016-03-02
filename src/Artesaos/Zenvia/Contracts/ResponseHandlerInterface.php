@@ -12,7 +12,7 @@ interface ResponseHandlerInterface
      * Convert a PSR-7 response to a data type you want to work with.
      *
      * @param ResponseInterface $response
-     * @param string            $format
+     * @param string $format
      *
      * @return ResponseInterface|\Psr\Http\Message\StreamInterface|\SimpleXMLElement|string
      *
@@ -45,4 +45,13 @@ interface ResponseHandlerInterface
      *
      */
     public static function convertToSimpleXml($data, $rootNodeName = 'root', $xml = null);
+
+
+    /**
+     * Handle with HTTP errors
+     * @param ResponseInterface $request
+     * @return
+     * @internal param ResponseInterface $response
+     */
+    public static function handleWithErrors(ResponseInterface $request);
 }
