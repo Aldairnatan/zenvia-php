@@ -20,7 +20,7 @@ class Authenticator implements AuthenticatorInterface
      * @param $account
      * @param $password
      */
-    public function __construct($account= null, $password = null)
+    public function __construct($account, $password)
     {
         $this->setAccount($account);
         $this->setPassword($password);
