@@ -77,7 +77,7 @@ class ResponseHandler implements ResponseHandlerInterface
                     $xml->addChild($key, $value);
                 }
             }
-            return $xml->asXML();
+            return $xml;
         } catch (\Exception $e) {
             throw new ZenviaResponseException('Unable to parse response body into XML.');
         }
