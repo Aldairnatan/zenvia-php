@@ -25,12 +25,12 @@ class AuthenticatorTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_if_can_change_credentials_on_runtime(){
-        $newName = 'test_test';
+        $newAccount = 'test_test';
         $newPassword = 'password_password';
 
         $this->authenticator->setPassword($newPassword);
-        $this->authenticator->setAccount($newName);
+        $this->authenticator->setAccount($newAccount);
 
-        $this->assertEquals(base64_encode($newName.':'.$newPassword), $this->authenticator->getAccessCode());
+        $this->assertEquals(base64_encode($newAccount.':'.$newPassword), $this->authenticator->getAccessCode());
     }
 }
