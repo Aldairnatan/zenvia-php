@@ -30,7 +30,10 @@ class RequestManager implements RequestManagerInterface
     {
         $request = MessageFactoryDiscovery::find()->createRequest($method, $this->getUrl().$uri, ['authorization'=>"Basic $access_code",'content-type'=>'application/json','accept'=>'application/json'], json_encode($body), $protocolVersion);
         try {
-            return $this->getHttpClient()->sendRequest($request);
+            $response = ResponseHandler::convert($this->getHttpClient()->sendRequest($request),'psr7');
+
+            ResponseHandler::handleWithErrors($response);
+            return $response;
         } catch (TransferException $e) {
             throw new ZenviaRequestException('Error while requesting data from Zenvia API: '.$e->getMessage(), $e->getCode(), $e);
         }
