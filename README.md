@@ -9,7 +9,7 @@ This package integrate the Zenvia SMS Gateway API 2.0 with your PHP application,
 
 > Not work for now!
 
-This project follow the [psr-7](http://www.php-fig.org/psr/psr-7/) standards and no have a dependecy of an specific HTTP client. You need require a library for send the Http requests manually, at your choice. 
+This project follow the [psr-7](http://www.php-fig.org/psr/psr-7/) standards and no have a dependency of an specific HTTP client. You need require a library for send the Http requests manually, at your choice. 
 Consult this list to find a client that support [php-http/client-implementation](https://packagist.org/providers/php-http/client-implementation). 
 For more information about virtual packages please refer to [Httplug](http://docs.php-http.org/en/latest/httplug/users.html). Example:
 ```bash
@@ -43,3 +43,5 @@ If you need convert your psr7 response to one of the response types manually, us
 ```php
 Artesaos\Zenvia\Http\ResponseHandler::convert($response,$type)
 ```
+
+> Work in progress!
