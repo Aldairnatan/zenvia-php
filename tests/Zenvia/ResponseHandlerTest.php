@@ -16,7 +16,7 @@ class ResponseHandlerTest extends \PHPUnit_Framework_TestCase
         $this->response = new Response(200,[],$body);
     }
 
-    public function test_if_a_response_from_api_is_psr7()
+    public function test_if_a_response_is_psr7()
     {
         $this->assertInstanceOf(ResponseInterface::class, $this->response);
     }
