@@ -1,36 +1,37 @@
 <?php
 namespace Artesaos\Zenvia\Tests;
 
-class AuthenticatorTest extends \PHPUnit_Framework_TestCase
-{
-    private $account = 'test';
-    private $password = 'password';
+use Mockery as m;
+use Artesaos\Zenvia\Tests\Traits\MockTrait;
+use Artesaos\Zenvia\Http\RequestManager;
 
-    private $authenticator;
+class RequestManagerTest extends \PHPUnit_Framework_TestCase
+{
+    use MockTrait;
+
+    private $requestManager;
 
     public function setUp()
     {
-        $this->authenticator = new \Artesaos\Zenvia\Authenticator($this->account, $this->password);
+        $this->requestManager = new RequestManager();
     }
 
-    public function test_constructor_and_getters_setters()
+    public function test_if_api_url_is_set_up_by_default()
     {
-        $this->assertEquals($this->account, $this->authenticator->getAccount());
-        $this->assertEquals($this->password, $this->authenticator->getPassword());
+        $this->assertNotEmpty($this->requestManager->getUrl());
     }
 
-    public function test_if_access_code_is_valid()
+    public function test_can_change_api_url()
     {
-        $this->assertEquals(base64_encode($this->account.':'.$this->password), $this->authenticator->getAccessCode());
+        $newUrl = "http://myapi.app/";
+        $this->requestManager->setUrl($newUrl);
+        $this->assertEquals($newUrl, $this->requestManager->getUrl());
     }
 
-    public function test_if_can_change_credentials_on_runtime(){
-        $newName = 'test_test';
-        $newPassword = 'password_password';
-
-        $this->authenticator->setPassword($newPassword);
-        $this->authenticator->setAccount($newName);
-
-        $this->assertEquals(base64_encode($newName.':'.$newPassword), $this->authenticator->getAccessCode());
+    public function test_if_can_get_a_valid_http_client()
+    {
+        $this->assertInstanceOf(\Http\Client\HttpClient::class, $this->requestManager->getHttpClient());
     }
+
+
 }
