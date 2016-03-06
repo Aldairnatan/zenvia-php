@@ -13,7 +13,7 @@ class AuthenticatorTest extends \PHPUnit_Framework_TestCase
         $this->authenticator = new \Artesaos\Zenvia\Authenticator($this->account, $this->password);
     }
 
-    public function test_constructor()
+    public function test_constructor_and_getters_setters()
     {
         $this->assertEquals($this->account, $this->authenticator->getAccount());
         $this->assertEquals($this->password, $this->authenticator->getPassword());
@@ -24,15 +24,13 @@ class AuthenticatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(base64_encode($this->account.':'.$this->password), $this->authenticator->getAccessCode());
     }
 
-    public function test_if_can_change_account_on_runtime(){
+    public function test_if_can_change_credentials_on_runtime(){
         $newName = 'test_test';
-        $this->authenticator->setAccount($newName);
-        $this->assertEquals(base64_encode($newName.':'.$this->password), $this->authenticator->getAccessCode());
-    }
-
-    public function test_if_can_change_password_on_runtime(){
         $newPassword = 'password_password';
+
         $this->authenticator->setPassword($newPassword);
-        $this->assertEquals(base64_encode($this->account.':'.$newPassword), $this->authenticator->getAccessCode());
+        $this->authenticator->setAccount($newName);
+
+        $this->assertEquals(base64_encode($newName.':'.$newPassword), $this->authenticator->getAccessCode());
     }
 }
