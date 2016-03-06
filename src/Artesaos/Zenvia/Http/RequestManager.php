@@ -47,11 +47,15 @@ class RequestManager implements RequestManagerInterface
 
     /**
      * @return HttpClient
+     * @throws ZenviaRequestException
      */
-    protected function getHttpClient()
+    public function getHttpClient()
     {
         if ($this->httpClient === null) {
             $this->httpClient = HttpClientDiscovery::find();
+            if ($this->httpClient === null){
+                throw new ZenviaRequestException('The RequestManager expects a valid Http Client or Adapter, none given. Please install a valid Http Client or Adapter');
+            }
         }
         return $this->httpClient;
     }
