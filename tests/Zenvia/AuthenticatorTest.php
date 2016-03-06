@@ -13,6 +13,12 @@ class AuthenticatorTest extends \PHPUnit_Framework_TestCase
         $this->authenticator = new \Artesaos\Zenvia\Authenticator($this->account, $this->password);
     }
 
+    public function test_constructor()
+    {
+        $this->assertEquals($this->account, $this->authenticator->getAccount());
+        $this->assertEquals($this->password, $this->authenticator->getPassword());
+    }
+
     public function test_if_access_code_is_valid()
     {
         $this->assertEquals(base64_encode($this->account.':'.$this->password), $this->authenticator->getAccessCode());
