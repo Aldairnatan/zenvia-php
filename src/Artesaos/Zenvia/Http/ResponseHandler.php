@@ -28,7 +28,7 @@ class ResponseHandler implements ResponseHandlerInterface
             case 'psr7':
                 return $response;
             default:
-                throw new \InvalidArgumentException('Format '.$format.'is not supported');
+                throw new \InvalidArgumentException('Format '.$format.' is not supported');
         }
     }
 
