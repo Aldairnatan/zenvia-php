@@ -45,8 +45,8 @@ class ResponseHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $convertedResponse = ResponseHandler::convert($this->response,'simple_xml');
 
-        $this->assertInstanceOf(\SimpleXmlElement::class,simplexml_load_string($convertedResponse));
-        $this->assertEquals('example',simplexml_load_string($convertedResponse)->response);
+        $this->assertInstanceOf(\SimpleXmlElement::class,$convertedResponse);
+        $this->assertEquals('example',$convertedResponse->response);
     }
 
     public function test_if_a_exception_is_throw_on_convert_to_invalid_format()
