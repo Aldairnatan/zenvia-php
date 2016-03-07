@@ -1,5 +1,7 @@
 # Zenvia PHP
 
+[![Build Status](https://travis-ci.org/artesaos/zenvia-php.svg?branch=master)](https://travis-ci.org/artesaos/zenvia-php)
+
 > # :warning: Under Development :construction:
 
 ## Introduction
