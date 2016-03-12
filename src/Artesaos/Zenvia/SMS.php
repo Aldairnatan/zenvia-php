@@ -8,6 +8,7 @@ use Artesaos\Zenvia\Contracts\SMSInterface;
 use Artesaos\Zenvia\Exceptions\ZenviaContractException;
 use Artesaos\Zenvia\Http\RequestManager;
 use Artesaos\Zenvia\Http\ResponseHandler;
+use Carbon\Carbon;
 
 class SMS implements SMSInterface {
 
@@ -43,6 +44,9 @@ class SMS implements SMSInterface {
         if($aggregateId != null){
             $data['sendSmsRequest']['aggregateId'] = $aggregateId;
         }
+
+        $data = $this->getRequestManager()->convertDateFormatFromArrayField($data, 'schedule','Y-m-d\TH:i:s');
+
         $response = $this->getRequestManager()
                            ->sendRequest('POST','services/send-sms',$data, $this->authenticator->getAccessCode(),'1.1');
 
@@ -56,12 +60,15 @@ class SMS implements SMSInterface {
     public function sendMultiple(array $data,$aggregateId = null, $responseFormat = 'psr7')
     {
         if($aggregateId != null){
-            $array_data['sendSmsMultiRequest']['aggregateId'] = $aggregateId;
+            $data['sendSmsMultiRequest']['aggregateId'] = $aggregateId;
         }
 
-        $array_data['sendSmsMultiRequest']['sendSmsRequestList'] = $data;
+        $data['sendSmsMultiRequest']['sendSmsRequestList'] = $data;
+
+        $data = $this->getRequestManager()->convertDateFormatFromArrayField($data, 'schedule','Y-m-d\TH:i:s');
+
         $response = $this->getRequestManager()
-            ->sendRequest('POST','services/send-sms-multiple',$array_data, $this->authenticator->getAccessCode(),'1.1');
+            ->sendRequest('POST','services/send-sms-multiple',$data, $this->authenticator->getAccessCode(),'1.1');
 
         return ResponseHandler::convert($response,$responseFormat);
 
