@@ -36,9 +36,13 @@ class SMS implements SMSInterface {
     /**
      * {@inheritdoc}
      */
-    public function send(array $body, $responseFormat = 'psr7')
+    public function send(array $body,$aggregateId = null, $responseFormat = 'psr7')
     {
         $data['sendSmsRequest'] = $body;
+
+        if($aggregateId != null){
+            $data['sendSmsRequest']['aggregateId'] = $aggregateId;
+        }
         $response = $this->getRequestManager()
                            ->sendRequest('POST','services/send-sms',$data, $this->authenticator->getAccessCode(),'1.1');
 
