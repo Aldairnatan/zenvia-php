@@ -81,14 +81,18 @@ You can schedule a text message to be sent passing a schedule attribute to the b
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
 $response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message','schedule'=>'15/04/2016 17:10:23']);
 ```
-By default the Zenvia API accepts the ISO format, someting like this `2016-04-15T17:10:23`. Thanks to Carbon extension for make this more easy.
-Instead of a ISO date string, you may pass a variety of formats accepted by carbon.
+By default the Zenvia API accepts the ISO format, someting like this `2016-04-15T17:10:23`. 
+Thanks to Carbon extension for make this more easy.
+Instead of a ISO date string, you may pass a variety of formats accepted by Carbon.
+
 Example:
-`+1 day`
-`tomorrow 13:00`
-`this sunday 20:20:10`
-`17:10:23`
-`15/04/2016 17:10:23`
+* `+1 day`
+* `tomorrow 13:00`
+* `this sunday 20:20:10`
+* `17:10:23`
+* `15/04/2016 17:10:23`
+
+See more options on the [Carbon documentation](http://carbon.nesbot.com/docs/)
 
 > Work in progress!
 
