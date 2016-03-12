@@ -41,7 +41,7 @@ The class you need use for sending sms is the `Artesaos\Zenvia\SMS.php`.
 Let`s get started sending one sms:
 ```php
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
-$response = $sms->send(['id'=>'001','from'=>'sender','to=>'phone_number',''msg'=>'message']);
+$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number',''msg'=>'message']);
 ```
 
 The send method return for default a `psr7` response, but you can choose the response type, passing a third argument to the send method. The second argument is a optional `aggregateId` parameter.
@@ -49,7 +49,7 @@ The response type argument is a string and need to be one of: `array`,`obj`,`str
 Example:
 ```php
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
-$response = $sms->send(['id'=>'001','from'=>'sender','to=>'phone_number','msg'=>'message'],'simple_xml');
+$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message'],'simple_xml');
 ```
 
 If you need convert your psr7 response to one of the response types manually, see the [changing a response format](#changing-a-response-format) section.
