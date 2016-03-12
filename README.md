@@ -4,8 +4,17 @@
 
 > # :warning: Under Development :construction:
 
+
 ## Introduction
 This package integrate the Zenvia SMS Gateway API 2.0 with your PHP application, built with PSR-7 in mind.
+
+## Table of Contents
+
+- <a href="#installation">Installation</a>
+- <a href="#usage">Usage</a>
+    - <a href="#sending-sms">Sending SMS</a>
+    - <a href="#sending-multiple-sms">Sending Multiple SMS</a>
+- <a href="#license">License</a>
 
 ## Installation
 
@@ -41,9 +50,9 @@ Example:
 $response = (new Artesaos\Zenvia\SMS('your_account','your_password'))->send(['id'=>'001','from'=>'sender','msg'=>'message'],'simple_xml');
 ```
 
-If you need convert your psr7 response to one of the response types manually, use the `ResponseHandler` class:
-```php
-Artesaos\Zenvia\Http\ResponseHandler::convert($response,$type)
-```
+If you need convert your psr7 response to one of the response types manually, see the [changing a response format](#changing-a-response-format) section.
 
 > Work in progress!
+
+### License
+This project is open-source and licensed under the MIT license
