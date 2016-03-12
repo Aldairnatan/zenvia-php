@@ -40,17 +40,40 @@ First, see the [Zenvia API Documentation](http://docs.zenviasms.apiary.io/#refer
 The class you need use for sending sms is the `Artesaos\Zenvia\SMS.php`.
 Let`s get started sending one sms:
 ```php
-$response = (new Artesaos\Zenvia\SMS('your_account','your_password'))->send(['id'=>'001','from'=>'sender','msg'=>'message']);
+$sms = new Artesaos\Zenvia\SMS('your_account','your_password');
+$response = $sms->send(['id'=>'001','from'=>'sender','to=>'phone_number',''msg'=>'message']);
 ```
 
-The send method return for default a `psr7` response, but you can choose the response type, passing a second argument to the send method.
-This argument is a string and need to be one of: `array`,`obj`,`string`,`stream`,`simple_xml` or `psr7`(default).
+The send method return for default a `psr7` response, but you can choose the response type, passing a third argument to the send method. The second argument is a optional `aggregateId` parameter.
+The response type argument is a string and need to be one of: `array`,`obj`,`string`,`stream`,`simple_xml` or `psr7`(default).
 Example:
 ```php
-$response = (new Artesaos\Zenvia\SMS('your_account','your_password'))->send(['id'=>'001','from'=>'sender','msg'=>'message'],'simple_xml');
+$sms = new Artesaos\Zenvia\SMS('your_account','your_password');
+$response = $sms->send(['id'=>'001','from'=>'sender','to=>'phone_number','msg'=>'message'],'simple_xml');
 ```
 
 If you need convert your psr7 response to one of the response types manually, see the [changing a response format](#changing-a-response-format) section.
+
+### Sending Multiple SMS
+For sending multiple SMS at a time, use the `sendMultiple` method instead of `send` method:
+```php
+$messages = [
+    [
+        'id'=>'001',
+        'from'=>'sender',
+        'to'=>'phone_number'
+        'msg'=>'message'
+    ],
+    [
+        'id'=>'002',
+        'from'=>'sender',
+        'to'=>'phone_number'
+        'msg'=>'message'
+    ],
+];
+$sms = new Artesaos\Zenvia\SMS('your_account','your_password');
+$response = $sms->send($messages);
+```
 
 > Work in progress!
 
