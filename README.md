@@ -14,6 +14,7 @@ This package integrate the Zenvia SMS Gateway API 2.0 with your PHP application,
 - <a href="#usage">Usage</a>
     - <a href="#sending-sms">Sending SMS</a>
     - <a href="#sending-multiple-sms">Sending Multiple SMS</a>
+    - <a href="#schedule-sms">Schedule SMS</a>
 - <a href="#license">License</a>
 
 ## Installation
@@ -74,6 +75,20 @@ $messages = [
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
 $response = $sms->send($messages);
 ```
+### Schedule SMS
+You can schedule a text message to be sent passing a schedule attribute to the body of your sms:
+```php
+$sms = new Artesaos\Zenvia\SMS('your_account','your_password');
+$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message','schedule'=>'15/04/2016 17:10:23']);
+```
+By default the Zenvia API accepts the ISO format, someting like this `2016-04-15T17:10:23`. Thanks to Carbon extension for make this more easy.
+Instead of a ISO date string, you may pass a variety of formats accepted by carbon.
+Example:
+`+1 day`
+`tomorrow 13:00`
+`this sunday 20:20:10`
+`17:10:23`
+`15/04/2016 17:10:23`
 
 > Work in progress!
 
