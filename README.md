@@ -88,6 +88,7 @@ Instead of a ISO date string, you may pass a variety of formats accepted by Carb
 Example:
 * `+1 day`
 * `tomorrow 13:00`
+* `first day of April 17:10:23`
 * `this sunday 20:20:10`
 * `17:10:23`
 * `15/04/2016 17:10:23`
