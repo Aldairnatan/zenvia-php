@@ -4,6 +4,7 @@ namespace Artesaos\Zenvia\Http;
 
 use Artesaos\Zenvia\Contracts\RequestManagerInterface;
 use Artesaos\Zenvia\Exceptions\ZenviaRequestException;
+use Carbon\Carbon;
 use Http\Client\Exception\TransferException;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
@@ -37,6 +38,25 @@ class RequestManager implements RequestManagerInterface
         } catch (TransferException $e) {
             throw new ZenviaRequestException('Error while requesting data from Zenvia API: '.$e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function convertDateFormatFromArrayField(array $data, $field, $format)
+    {
+        if($data['sendSmsRequest'][$field]){
+            $data['sendSmsRequest'][$field] = (new Carbon($data['sendSmsRequest'][$field]))->format($format);
+            return $data;
+        }elseif($data['sendSmsMultiRequest']['sendSmsRequestList']){
+            foreach($data['sendSmsMultiRequest']['sendSmsRequestList'] as &$value){
+                if($value[$field]){
+                    $value[$field] = (new Carbon($data['sendSmsRequest'][$field]))->format($format);
+                }
+            }
+            $data = array_intersect_key($data, array_flip(array_filter(array_keys($data), 'is_string')));
+        }
+        return $data;
     }
 
     /**

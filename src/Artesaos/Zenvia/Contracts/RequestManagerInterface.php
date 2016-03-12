@@ -25,4 +25,14 @@ interface RequestManagerInterface
      * @return RequestManager
      */
     public function setHttpClient(HttpClient $httpClient);
+
+    /**
+     * Convert a array field value to the given date format
+     *
+     * @param array $data   The array
+     * @param string $field The field name
+     * @param string $format The format to be converted
+     * @return mixed
+     */
+    public function convertDateFormatFromArrayField(array $data, $field, $format);
 }
