@@ -45,13 +45,13 @@ class RequestManager implements RequestManagerInterface
      */
     public function convertDateFormatFromArrayField(array $data, $field, $format)
     {
-        if($data['sendSmsRequest'][$field]){
+        if(isset($data['sendSmsRequest'][$field])){
             $data['sendSmsRequest'][$field] = (new Carbon($data['sendSmsRequest'][$field]))->format($format);
             return $data;
-        }elseif($data['sendSmsMultiRequest']['sendSmsRequestList']){
+        }elseif(isset($data['sendSmsMultiRequest']['sendSmsRequestList'])){
             foreach($data['sendSmsMultiRequest']['sendSmsRequestList'] as &$value){
                 if($value[$field]){
-                    $value[$field] = (new Carbon($data['sendSmsRequest'][$field]))->format($format);
+                    $value[$field] = (new Carbon($value[$field]))->format($format);
                 }
             }
             $data = array_intersect_key($data, array_flip(array_filter(array_keys($data), 'is_string')));
