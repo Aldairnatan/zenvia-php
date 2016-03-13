@@ -1,6 +1,6 @@
 # Zenvia PHP
 
-[![Build Status](https://travis-ci.org/artesaos/zenvia-php.svg?branch=master)](https://travis-ci.org/artesaos/zenvia-php)
+[![Build Status](https://travis-ci.org/artesaos/zenvia-php.svg?branch=develop)](https://travis-ci.org/artesaos/zenvia-php)
 
 > # :warning: Under Development :construction:
 
@@ -42,7 +42,7 @@ The class you need use for sending sms is the `Artesaos\Zenvia\SMS.php`.
 Let`s get started sending one sms:
 ```php
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
-$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number',''msg'=>'message']);
+$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message']);
 ```
 
 The send method return for default a `psr7` response, but you can choose the response type, passing a third argument to the send method. The second argument is a optional `aggregateId` parameter.
@@ -50,13 +50,13 @@ The response type argument is a string and need to be one of: `array`,`obj`,`str
 Example:
 ```php
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
-$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message'],'simple_xml');
+$response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message'],null,'simple_xml');
 ```
 
 If you need convert your psr7 response to one of the response types manually, see the [changing a response format](#changing-a-response-format) section.
 
 ### Sending Multiple SMS
-For sending multiple SMS at a time, use the `sendMultiple` method instead of `send` method:
+For sending multiple SMS at a time, use the `sendMultiple` method instead of `send` method. This method has the same signature:
 ```php
 $messages = [
     [
@@ -73,7 +73,7 @@ $messages = [
     ],
 ];
 $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
-$response = $sms->send($messages);
+$response = $sms->sendMultiple($messages);
 ```
 ### Schedule SMS
 You can schedule a text message to be sent passing a schedule attribute to the body of your sms:
