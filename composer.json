@@ -23,7 +23,7 @@
     "require": {
         "php": ">=5.5.9",
         "nesbot/carbon": "~1.14",
-        "illuminate/support": "~5.1 | ~5.2",
+        "illuminate/support": "^5.0",
         "php-http/client-implementation": "^1.0",
         "php-http/httplug": "^1.0",
         "php-http/message": "^1.0",
