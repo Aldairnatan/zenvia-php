@@ -94,7 +94,7 @@ Example:
 * `17:10:23`
 * `15/04/2016 17:10:23`
 
-See more options on the [Carbon documentation](http://carbon.nesbot.com/docs/)
+You can use any format accepted by Carbon contructor(or parse method).See more options on the [Carbon documentation](http://carbon.nesbot.com/docs/)
 
 ### Changing The Response Format
 If you need change the response format manually, use the `Artesaos\Http\ResponseHandler` class. Call the static `convert` method for convert your PSR-7 response to one of the formats above: 
