@@ -47,7 +47,6 @@ class RequestManager implements RequestManagerInterface
     {
         if(isset($data['sendSmsRequest'][$field])){
             $data['sendSmsRequest'][$field] = (new Carbon($data['sendSmsRequest'][$field]))->format($format);
-            return $data;
         }elseif(isset($data['sendSmsMultiRequest']['sendSmsRequestList'])){
             foreach($data['sendSmsMultiRequest']['sendSmsRequestList'] as &$value){
                 if($value[$field]){
