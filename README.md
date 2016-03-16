@@ -15,6 +15,7 @@ This package integrate the Zenvia SMS Gateway API 2.0 with your PHP application,
     - <a href="#sending-sms">Sending SMS</a>
     - <a href="#sending-multiple-sms">Sending Multiple SMS</a>
     - <a href="#schedule-sms">Schedule SMS</a>
+    - <a href="#check-the-status-of-a-delivered-sms">Check the status of a Delivered SMS</a>
     - <a href="#changing-the-response-format">Changing The Response Format</a>
 - <a href="#license">License</a>
 
@@ -95,6 +96,13 @@ Example:
 * `15/04/2016 17:10:23`
 
 You can use any format accepted by Carbon contructor(or parse method).See more options on the [Carbon documentation](http://carbon.nesbot.com/docs/)
+
+### Check the status of a Delivered SMS
+You can check the status of a delivered SMS using the `check` method. The first argument is the sms `id` and the second the response format:
+```php
+$sms = new Artesaos\Zenvia\SMS('your_account','your_password');
+$response = $sms->check($id, 'obj');
+```
 
 ### Changing The Response Format
 If you need change the response format manually, use the `Artesaos\Http\ResponseHandler` class. Call the static `convert` method for convert your PSR-7 response to one of the formats above: 
