@@ -3,12 +3,9 @@ namespace Artesaos\Zenvia;
 
 use Artesaos\Zenvia\Contracts\AuthenticatorInterface;
 use Artesaos\Zenvia\Contracts\RequestManagerInterface;
-use Artesaos\Zenvia\Contracts\ResponseHandlerInterface;
 use Artesaos\Zenvia\Contracts\SMSInterface;
-use Artesaos\Zenvia\Exceptions\ZenviaContractException;
 use Artesaos\Zenvia\Http\RequestManager;
 use Artesaos\Zenvia\Http\ResponseHandler;
-use Carbon\Carbon;
 
 class SMS implements SMSInterface {
 
