@@ -72,6 +72,17 @@ class SMS implements SMSInterface {
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function check($id, $responseFormat = 'psr7')
+    {
+        $response = $this->getRequestManager()
+            ->sendRequest('GET','services/get-sms-status/'.$id, [], $this->authenticator->getAccessCode(),'1.1');
+
+        return ResponseHandler::convert($response,$responseFormat);
+    }
+
+    /**
      * @return RequestManagerInterface
      */
     public function getRequestManager()

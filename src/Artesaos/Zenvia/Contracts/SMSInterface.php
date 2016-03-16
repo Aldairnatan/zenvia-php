@@ -26,4 +26,14 @@ interface SMSInterface
      * @internal param array $body
      */
     public function sendMultiple(array $data,$aggregateId = null, $responseFormat = 'psr7');
+
+    /**
+     * Check the status of a delivered sms
+     *
+     * @param string $id             The SMS id
+     * @param string $responseFormat The response format must be one of: array, obj, string, stream, psr7, simple_xml
+     * @return mixed
+     */
+    public
+    function check($id, $responseFormat = 'psr7');
 }
