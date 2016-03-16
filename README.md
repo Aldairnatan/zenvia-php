@@ -15,6 +15,7 @@ This package integrate the Zenvia SMS Gateway API 2.0 with your PHP application,
     - <a href="#sending-sms">Sending SMS</a>
     - <a href="#sending-multiple-sms">Sending Multiple SMS</a>
     - <a href="#schedule-sms">Schedule SMS</a>
+    - <a href="#changing-the-response-format">Changing The Response Format</a>
 - <a href="#license">License</a>
 
 ## Installation
@@ -45,7 +46,7 @@ $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
 $response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message']);
 ```
 
-The send method return for default a `psr7` response, but you can choose the response type, passing a third argument to the send method. The second argument is a optional `aggregateId` parameter.
+The `send` and `sendMultiple` method return for default a `psr7` response, but you can choose the response type, passing a third argument to the send method. The second argument is a optional `aggregateId` parameter.
 The response type argument is a string and need to be one of: `array`,`obj`,`string`,`stream`,`simple_xml` or `psr7`(default).
 Example:
 ```php
@@ -53,7 +54,7 @@ $sms = new Artesaos\Zenvia\SMS('your_account','your_password');
 $response = $sms->send(['id'=>'001','from'=>'sender','to'=>'phone_number','msg'=>'message'],null,'simple_xml');
 ```
 
-If you need convert your psr7 response to one of the response types manually, see the [changing a response format](#changing-a-response-format) section.
+If you need convert your psr7 response to one of the response types manually, see the [Changing The Response Format](#changing-the-response-format) section.
 
 ### Sending Multiple SMS
 For sending multiple SMS at a time, use the `sendMultiple` method instead of `send` method. This method has the same signature:
@@ -93,9 +94,21 @@ Example:
 * `17:10:23`
 * `15/04/2016 17:10:23`
 
-See more options on the [Carbon documentation](http://carbon.nesbot.com/docs/)
+You can use any format accepted by Carbon contructor(or parse method).See more options on the [Carbon documentation](http://carbon.nesbot.com/docs/)
+
+### Changing The Response Format
+If you need change the response format manually, use the `Artesaos\Http\ResponseHandler` class. Call the static `convert` method for convert your PSR-7 response to one of the formats above: 
+
+`array`,`obj`,`string`,`stream`,`simple_xml`
+
+Note: The response to be converted must be a valid `PSR-7` format!
+
+```php
+$converted_response = Artesaos\Zenvia\Http\ResponseHandler::convert($response, $format);
+```
+
 
 > Work in progress!
 
-### License
+## License
 This project is open-source and licensed under the MIT license
