@@ -1,6 +1,7 @@
 <?php
 namespace Artesaos\Zenvia\Tests;
 
+use Carbon\Carbon;
 use Mockery as m;
 use Artesaos\Zenvia\Tests\Traits\MockTrait;
 use Artesaos\Zenvia\Http\RequestManager;
@@ -33,5 +34,15 @@ class RequestManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(\Http\Client\HttpClient::class, $this->requestManager->getHttpClient());
     }
 
+    public function test_if_can_convert_date_format_from_array_field()
+    {
+        $date = "2016/12/5 12:00";
+        $format = 'Y-m-d\TH:i:s';
 
+        $array['sendSmsRequest'] = ['id' => '001', 'msg' => 'test', 'schedule' => $date];
+        $array_converted_date['sendSmsRequest'] = ['id' => '001', 'msg' => 'test', 'schedule' => Carbon::parse($date)->format($format)];
+
+        $request = new RequestManager();
+        $this->assertEquals($array_converted_date, $request->convertDateFormatFromArrayField($array,'schedule',$format));
+    }
 }
