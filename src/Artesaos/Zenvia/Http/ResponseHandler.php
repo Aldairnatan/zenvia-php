@@ -37,7 +37,8 @@ class ResponseHandler implements ResponseHandlerInterface
      */
     public static function convertToArray(ResponseInterface $response)
     {
-        return json_decode($response->getBody()->getContents(), true);
+        $response = static::convertDatesToCarbon($response);
+        return json_decode($response, true);
     }
 
     /**
@@ -45,7 +46,8 @@ class ResponseHandler implements ResponseHandlerInterface
      */
     public static function convertToObj(ResponseInterface $response)
     {
-        return json_decode($response->getBody()->getContents());
+        $response = static::convertDatesToCarbon($response);
+        return json_decode($response);
     }
 
     /**
@@ -77,6 +79,15 @@ class ResponseHandler implements ResponseHandlerInterface
                     $xml->addChild($key, $value);
                 }
             }
+            $xml = new \SimpleXMLIterator($xml);
+            $iterator = new \RecursiveIteratorIterator($xml);
+            foreach ($iterator as $element) {
+                try {
+                    $try = \Carbon\Carbon::parse($element);
+                    $value = $try;
+                } catch (\Exception $e) {
+                }
+            }
             return $xml;
         } catch (\Exception $e) {
             throw new ZenviaResponseException('Unable to parse response body into XML.');
@@ -103,5 +114,17 @@ class ResponseHandler implements ResponseHandlerInterface
                 return;
                 break;
         }
+    }
+
+    public static function convertDatesToCarbon($response)
+    {
+        array_walk_recursive(json_decode($response->getBody()->getContents()), function (&$value) {
+            try {
+                $try = \Carbon\Carbon::parse($value);
+                $value = $try;
+            } catch (\Exception $e) {
+            }
+        });
+        return $response;
     }
 }
